@@ -52,6 +52,15 @@ Route::get('products/{id}/destroy',['as'=>'products.destroy', 'uses'=> 'Products
 
 
 
+
+
+Route::get('buscarendereco', 'ProductsController@endereco');
+
+
+
+
+
+
 Route::group(['prefix' => 'admin'], function() {
 	Route::group(['prefix' => 'categories'], function() {
 		Route::get('/', 'AdminCategoriesController@index');

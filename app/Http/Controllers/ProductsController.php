@@ -3,6 +3,9 @@
 use CodeCommerce\Product;
 use CodeCommerce\Http\Requests;
 use CodeCommerce\Http\Controllers\Controller;
+use Cagartner\CorreiosConsulta\CorreiosConsulta;
+
+
 
 
 class ProductsController extends Controller {
@@ -19,6 +22,17 @@ class ProductsController extends Controller {
 		$products = $this->productModel->all();
 		return view('products.index', compact('products'));
 	}
+
+	public function endereco(){
+        $consulta = new CorreiosConsulta;
+        echo "<h1>CEP: 21380010</h1>";
+        echo "<pre>";
+        print_r($consulta->cep('21380010'));
+
+        exit;
+
+    }
+
 
 	public function create(){
 		return view('products.create');

@@ -29,6 +29,8 @@ class AppServiceProvider extends ServiceProvider {
 			'Illuminate\Contracts\Auth\Registrar',
 			'CodeCommerce\Services\Registrar'
 		);
+
+		
 	}
 
 }

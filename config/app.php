@@ -141,6 +141,14 @@ return [
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Html\HtmlServiceProvider',
 
+		//https://packagist.org/packages/canducci/zipcode
+		//'Canducci\ZipCode\Providers\ZipCodeServiceProvider',
+		//'Canducci\ZipCode\Providers\ZipCodeAddressServiceProvider',
+
+		//https://github.com/cagartner/correios-consulta
+		'Cagartner\CorreiosConsulta\ServiceProvider',
+
+
 		/*
 		 * Application Service Providers...
 		 */
@@ -199,6 +207,10 @@ return [
 		'View'      => 'Illuminate\Support\Facades\View',
 		'Form'      => 'Illuminate\Html\FormFacade',
 		'Html'      => 'Illuminate\Html\HtmlFacade',
+		'ZipCode'   => 'Canducci\ZipCode\Facades\ZipCode::class',
+		'Address'   => 'Canducci\ZipCode\Facades\ZipCodeAddress::class',
+		'Correios'    => 'Cagartner\CorreiosConsulta\Facade',
+
 
 	],
 
