@@ -32,6 +32,8 @@
                 @endforeach
         </table>
 
+        <span>  {!!  $categories->render() !!} </span>
+
     </div>
 
 @endsection
