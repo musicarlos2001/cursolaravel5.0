@@ -19,11 +19,16 @@
 
         @endif
 
-        {!!  Form::open(['url'=>'products']) !!}
+        {!!  Form::open(['route'=>['products.store'], 'method'=>'post']) !!}
 
         <div class="form-group">
             {!! Form::label('category', 'Category:') !!}
             {!! Form::select('category_id', $categories, null, ['class'=>'form-control']) !!}
+        </div>
+
+        <div class="form-group">
+            {!! Form::label('tag', 'Tag:') !!}
+            {!! Form::select('tag_id', $tags, null, ['class'=>'form-control']) !!}
         </div>
 
         <div class="form-group">
@@ -43,15 +48,20 @@
         </div>
 
         <div class="form-group">
+            {!! Form::label('featured','Featured:')!!}
+            {!!Form::select('featured',array('1'=>'YES','0'=>'NO')) !!}
 
-            {!! Form::label('featured', 'Featured:') !!}
-            {!! Form::checkbox('featured','1') !!}
+            &nbsp;&nbsp;
+
+
+            {!! Form::label('recommend','Recommend') !!}
+            {!!Form::select('recommend',array('1'=>'YES','0'=>'NO')) !!}
         </div>
 
-        <div class="form-group">
 
-            {!! Form::label('recommend', 'Recommend:') !!}
-            {!! Form::checkbox('recommend','1') !!}
+        <div class="form-group">
+            {!! Form::label('tags','Tags') !!}
+            {!! Form::textarea('tags') !!}
         </div>
 
         <div class="form-group">

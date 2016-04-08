@@ -23,4 +23,46 @@ class Product extends Model {
 		return $this->belongsTo('CodeCommerce\Category');
 	}
 
+	public function tags()
+	{
+		return $this->belongsToMany('CodeCommerce\Tag');
+	}
+
+	public function tagToArray($tags)
+	{
+		$tagBanco = new Tag();
+		$tags = explode(',',$tags);
+		$tags = array_map('trim',$tags);
+		$tagCollection = [];
+		foreach($tags as $tag)
+		{
+			$t = $tagBanco->firstOrCreate(['name'=>$tag]);
+			array_push($tagCollection,$t->id);
+		}
+		return $tagCollection;
+	}
+	public function getTagListAttribute()
+	{
+		$arrayTags = array();
+		$tags = $this->tags->lists('name');
+		foreach($tags as $tag)
+		{
+			array_push($arrayTags,$tag);
+		}
+		return implode(',',$arrayTags);
+	}
+
+
+	public function scopeFeatured($query)
+	{
+		return $query->where('featured','=' ,1);
+	}
+
+
+
+
+
+
+
+
 }

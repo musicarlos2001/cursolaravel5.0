@@ -44,16 +44,30 @@
         </div>
 
         <div class="form-group">
-            {!! Form::hidden('featured', false) !!}
-            {!! Form::label('featured', 'Featured:') !!}
-            {!! Form::checkbox('featured','1' , $product->featured) !!}
+            {!! Form::label('featured','Featured:')!!}
+            @if($product->featured)
+                <?php $default = '1'?>
+            @else
+                <?php $default = '0' ?>
+            @endif
+            {!!Form::select('featured',array('1'=>'YES','0'=>'NO'),$default) !!}
+
+            &nbsp;&nbsp;
+
+            {!! Form::label('recommend','Recommend') !!}
+            @if($product->recommend)
+                <?php $default = '1'?>
+            @else
+                <?php $default = '0' ?>
+            @endif
+            {!!Form::select('recommend',array('1'=>'YES','0'=>'NO'),$default) !!}
         </div>
 
         <div class="form-group">
-            {!! Form::hidden('recommend', false) !!}
-            {!! Form::label('recommend', 'Recommend:') !!}
-            {!! Form::checkbox('recommend','1' , $product->recommend) !!}
+            {!! Form::label('tags','Tags') !!}
+            {!! Form::textarea('tags',$product->tagList) !!}
         </div>
+
 
         <div class="form-group">
            {!! Form::submit('Save Product', ['class'=>'btn btn-primary ']) !!}

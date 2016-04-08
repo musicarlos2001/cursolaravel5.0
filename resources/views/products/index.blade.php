@@ -5,7 +5,7 @@
     <div class="container">
         <h1>Products</h1>
 
-        <a href="{{ route('products.create') }}" class="btn btn-default">New Category</a>
+        <a href="{{ route('products.create') }}" class="btn btn-default">New Product</a>
 
         <br>
         <br>
@@ -28,9 +28,23 @@
                 <td>{{$product->name}}</td>
                 <td>{{$product->description}}</td>
                 <td>{{$product->price}}</td>
-                <td>{{$product->featured}}</td>
-                <td>{{$product->recommend}}</td>
+                <td>
+                    @if($product->featured)
+                        Yes
+                    @else
+                        No
+                    @endif
+                </td>
+                <td>
+                    @if($product->recommend)
+                        Yes
+                    @else
+                        No
+                    @endif
+                </td>
                 <td>{{$product->category->name}}</td>
+
+
                 <td>
                     <a href="{{ route('products.edit', ['id'=>$product->id]) }}">Edit</a>|
                     <a href="{{ route('products.images', ['id'=>$product->id]) }}">Images</a>|
