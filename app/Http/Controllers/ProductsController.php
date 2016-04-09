@@ -29,17 +29,6 @@ class ProductsController extends Controller {
 		return view('products.index', compact('products'));
 	}
 
-	public function endereco(){
-        $consulta = new CorreiosConsulta;
-        echo "<h1>CEP: 21380010</h1>";
-        echo "<pre>";
-        print_r($consulta->cep('21380010'));
-
-        exit;
-
-    }
-
-
 	public function create(Category $category, Tag $tag){
 
 		$tags = $tag->lists('name','id');
@@ -51,81 +40,50 @@ class ProductsController extends Controller {
 
 	private function storeTag($inputTags, $id)
 	{
-		$tag = new Tag();
-
-		$countTags = count($inputTags);
-
-		foreach ($inputTags as $key => $value) {
-
-			$newTag = $tag->firstOrCreate(["name" => $value]);
-			$idTags[] = $newTag->id;
-		}
+		$tagsIDs = array_map(function($tagName) {
+			return Tag::firstOrCreate(['name' => $tagName])->id;
+		}, array_filter($inputTags));
 
 		$product = $this->productModel->find($id);
-		$product->tags()->sync($idTags);
+		$product->tags()->sync($tagsIDs);
 
 	}
 
-public function store(Requests\ProductRequest $request){
 
-	$params = $request->all();
+	public function store(Requests\ProductRequest $request)
+	{
 
-	$product = $this->productModel->fill($params);
-	$product->save();
+		$product = $this->productModel->fill($request->all());
 
-	//$product = $this->productModel->fill($request->all());
+		$product->save();
 
-	//$product->save();
+		$inputTags = array_map('trim', explode(',', $request->get('tags')));
 
-	$tags = $params['tags'];
-	$tagsProduct = $product->tagToArray($tags);
-	$product->tags()->sync($tagsProduct);
+		$this->storeTag($inputTags,$product->id);
 
-	//$inputTags = array_map('trim', explode(',', $request->get('tags')));
-
-	//$this->storeTag($inputTags,$product->id);
-
-	return redirect()->route('products');
-
-
-	/*
-    $request['featured'] = $request->get('featured');
-    $request['recommended'] = $request->get('recommended');
-
-    $input = $request->all();
-    $product = $this->productModel->fill($input);
-    $product->save();
-    return redirect()->route('products', compact('product'));
-	*/
+		return redirect()->route('products');
 
 	}
+
 
 	public function edit($id, Category $category){
 
         $categories = $category->lists('name','id');
 
 		$product = $this->productModel->find($id);
+
 		return view('products.edit', compact('product','categories'));
 	}
 
 	public function update(Requests\ProductRequest $request, $id){
 
-
-
 		$this->productModel->find($id)->update($request->all());
-		
-
-		//$tags = $request['tags'];
-		//$tagsProduct = $this->productModel->tagToArray($tags);
-		//$this->productModel->tags()->sync($tagsProduct);
-
-		//$id = $request['id'];
-		//$produto = $this->productModel->find($id);
-		//$produto->fill($request->all());
-		//$produto->save();
-		//$tags = $request['tags'];
-		//$tagsProduct = $produto->tagToArray($tags);
-		//$produto->tags()->sync($tagsProduct);
+		$inputTags = array_map('trim', explode(',', $request->get('tags')));
+		if($inputTags) {
+			$this->storeTag($inputTags, $id);
+			return redirect()->route('products');
+		}
+		else
 
 		return redirect()->route('products');
 	}

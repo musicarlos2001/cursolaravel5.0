@@ -44,7 +44,7 @@ class Product extends Model {
 	public function getTagListAttribute()
 	{
 		$arrayTags = array();
-		$tags = $this->tags->lists('name');
+		$tags = $this->tags->lists('name')->toArray();
 		foreach($tags as $tag)
 		{
 			array_push($arrayTags,$tag);

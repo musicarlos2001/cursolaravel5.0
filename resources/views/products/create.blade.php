@@ -26,10 +26,7 @@
             {!! Form::select('category_id', $categories, null, ['class'=>'form-control']) !!}
         </div>
 
-        <div class="form-group">
-            {!! Form::label('tag', 'Tag:') !!}
-            {!! Form::select('tag_id', $tags, null, ['class'=>'form-control']) !!}
-        </div>
+
 
         <div class="form-group">
             {!! Form::label('name', 'Name:') !!}
