@@ -15,7 +15,9 @@ class StoreController extends Controller
 
         $pFeatured = Product::featured()->get();
 
-        //dd($pFeatured);
+       // $pRecommend = Product::recommend()->get();
+
+       //dd($pFeatured);
 
         $categories = Category::all();
 
